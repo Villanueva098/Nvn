@@ -1,0 +1,109 @@
+/* General Styling for visibility */
+body {
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+}
+.item {
+    background-color: #3cb371; /* Medium Sea Green */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #333;
+    box-sizing: border-box;
+    /* Reset flex/grid properties for inner items */
+    flex-grow: 1; 
+    flex-basis: 0;
+}
+
+/* --- GRID LAYOUT DEFINITION (Outer Container) --- */
+.grid-container-hybrid {
+    display: grid;
+    
+    /* Define 3 equal columns */
+    grid-template-columns: 1fr 1fr 1fr;
+    
+    /* Define 5 rows to account for all sections */
+    grid-template-rows: 100px 100px 100px 50px 50px;
+    
+    /* Space between grid items/rows */
+    gap: 10px;
+    
+    width: 600px; 
+    padding: 10px;
+    background-color: #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 1. Positioning the Top/Middle Grid Items */
+
+/* Item B: The Tall Center Box */
+.box-b {
+    /* Starts at column line 2, spans 1 column. Starts at row line 1, spans 2 rows */
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 2;
+}
+
+/* Placement of surrounding boxes */
+.box-a { grid-column: 1; grid-row: 1; }
+.box-c { grid-column: 3; grid-row: 1; }
+.box-d { grid-column: 1; grid-row: 2; }
+.box-e { grid-column: 3; grid-row: 2; }
+.box-f { grid-column: 3; grid-row: 3; }
+
+/* Item G: The Wide Section */
+.box-g {
+    grid-column: 1 / span 3; /* Spans the entire width */
+    grid-row: 3 / span 1; /* Occupies the third row */
+}
+
+/* --- FLEXBOX SECTION (Bottom Rows) --- */
+
+/* The Flexbox container must span the full width of the grid */
+.flex-row {
+    display: flex; /* Activate Flexbox */
+    gap: 10px; /* Maintains the same gap as the grid */
+    
+    /* Make the flex container span all 3 grid columns */
+    grid-column: 1 / span 3; 
+    padding: 0; /* Remove padding here so flex items fill the space */
+}
+
+/* Position Flex Row 1 (H and I) in Grid Row 4 */
+.flex-row.row-1 {
+    grid-row: 4 / span 1;
+}
+
+/* Position Flex Row 2 (J and K) in Grid Row 5 */
+.flex-row.row-2 {
+    grid-row: 5 / span 1;
+}
+
+/* Distribute the items H and I (or J and K) within their Flex container */
+.flex-row .item {
+    /* If you want item H (box-h) to be smaller, adjust its flex-basis */
+    /* Example: item H takes 30% of the space, item I takes 70% */
+    /* flex-grow: 1; flex-basis: 30%; */
+    
+    /* For the layout in the image, H and I look to be one small and one wide: */
+    width: auto;
+}
+.flex-row.row-1 .box-h {
+    flex-basis: 33%; /* Takes roughly one column's worth of space */
+    flex-grow: 0;
+}
+.flex-row.row-1 .box-i {
+    flex-basis: 67%; /* Takes roughly two columns' worth of space */
+    flex-grow: 0;
+}
+
+/* The very bottom row (J and K) looks like two equal halves */
+.flex-row.row-2 .item {
+    flex-grow: 1; /* Ensures they split the space equally */
+    flex-basis: 50%;
+}
